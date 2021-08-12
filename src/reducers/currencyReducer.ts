@@ -1,5 +1,5 @@
 import { ICurrency } from "../entities/ICurrency";
-import * as actionTypes from "../actions/ICurrencyTypes";
+import * as actionTypes from "../actions/actionTypes/ICurrencyTypes";
 
 export interface ICurrencyReducer{
     currencyList:ICurrency[];
