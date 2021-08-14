@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import currencies, {ICurrencyReducer} from "./currencyReducer";
+import rates, {ICurrencyReducer} from "./currencyReducer";
 
 export default combineReducers({
-    currencies
+    rates,
 })
 
 export interface IState{
-    currencies:ICurrencyReducer;
+    rates:ICurrencyReducer;
 }

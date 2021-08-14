@@ -1,4 +1,7 @@
 export interface ICurrency{
-    name:string;
-    exchangeRate:number;
+    success: boolean,
+    timestamp: number,
+    base: string,
+    date: string,
+    rates: {}
 }
