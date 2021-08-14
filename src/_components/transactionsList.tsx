@@ -11,7 +11,7 @@ export const TransactionList:FC=()=>{
     const transactionList=useSelector<IState, ITransactionReducer>(globalState=>globalState.transactions)
     const exchangeRate=useSelector<IState, IExchangeRateReducer>(globalState=>globalState.exchangeRate)
     const transactionData=transactionList.transactionsList
-    let transactionRecords=transactionData.map((record)=>(<li><Transaction title={record.title} valueEur={record.valueEur} exchangeRate={exchangeRate.currentRate.exchangeRate}/></li>))
+    let transactionRecords=transactionData.map((record)=>(<li><Transaction title={record.title} valueEur={record.valueEur} exchangeRate={exchangeRate.currentRate.exchangeRate} id={record.id}/></li>))
     let transactionsTotal:number=0
     transactionData.map((record)=>(transactionsTotal+=Number(record.valueEur)))
     let transactionsTotalPLN=transactionsTotal*exchangeRate.currentRate.exchangeRate

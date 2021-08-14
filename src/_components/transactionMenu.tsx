@@ -8,6 +8,7 @@ import {setExchangeRate} from '../actions/exchangeRateActions';
 import {useDispatch} from 'react-redux';
 import {IExchangeRateReducer} from '../reducers/exchangeRateReducer';
 import {IExchangeRate} from '../entities/IExchangeRate';
+import {ITransactionReducer} from '../reducers/transactionReducer'
 
 export const TransactionMenu:FC=()=>{
     type AddTransaction=ReturnType<typeof addTransaction>
@@ -16,6 +17,12 @@ export const TransactionMenu:FC=()=>{
     const [rate, setRate]=useState(0)
     const [title, setTitle]=useState('')
     const [value, setValue]=useState(0)
+
+    const currencyList=useSelector<IState, ICurrencyReducer>(globalState=>globalState.rates)
+    const exchangeRateList=useSelector<IState,IExchangeRateReducer>(globalState=>globalState.exchangeRate)
+    const transactionList=useSelector<IState, ITransactionReducer>(globalState=>globalState.transactions)
+    const exchangeRates=currencyList.currencyList.rates
+    let transactionsCount=transactionList.transactionsList.length
 
     const handleRateChange=(event:any)=>{
         setRate(event.target.value)
@@ -29,6 +36,7 @@ export const TransactionMenu:FC=()=>{
 
     const newTransaction=()=>{
         const sampleTransaction:ITransaction={
+            id:transactionsCount+1,
             title:title,
             valueEur:value
         };
@@ -42,9 +50,6 @@ export const TransactionMenu:FC=()=>{
         dispatch<SetExchangeRate>(setExchangeRate(newExchangeRate))
     }
 
-    const currencyList=useSelector<IState, ICurrencyReducer>(globalState=>globalState.rates)
-    const exchangeRateList=useSelector<IState,IExchangeRateReducer>(globalState=>globalState.exchangeRate)
-    const exchangeRates=currencyList.currencyList.rates
     return(
         <div className="transactionInput">
             <div className="exchangeRateWrapper">

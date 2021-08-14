@@ -1,5 +1,5 @@
 export interface ITransaction{
-    //id:number
+    id:number
     title:string,
     valueEur:number
 }

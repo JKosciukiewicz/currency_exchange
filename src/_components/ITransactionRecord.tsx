@@ -1,5 +1,5 @@
 export interface ITransactionRecord{
-    //id:number,
+    id:number,
     title:string,
     valueEur:number,
     exchangeRate:number
