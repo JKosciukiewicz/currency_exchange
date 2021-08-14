@@ -14,7 +14,6 @@ export default (state=defaultState(),action:any)=>{
     switch(action.type){
         case actionTypes.SET_EXCHANGE_RATE:{
             const payload:actionTypes.IExchangeRateTypes['SET_EXCHANGE_RATE']=action.newRate
-            debugger
             return {
                 ...state,
                 currentRate:payload

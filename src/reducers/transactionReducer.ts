@@ -15,7 +15,6 @@ export default (state=defaultState(),action:any)=>{
     switch(action.type){
         case actionTypes.ADD_TRANSACTION:{
             const payload:actionTypes.ITrasactionTypes['ADD_TRANSACTION']=action.newTransaction
-            debugger
             return {
                 ...state,
                 transactionsList:[...state.transactionsList, payload]

@@ -1,6 +1,17 @@
 import {FC} from 'react';
+import {ITransaction} from '../entities/ITransaction'
+import {ITransactionReducer} from '../reducers/transactionReducer'
+import {IState} from '../reducers'
+import {useSelector} from 'react-redux'
+import {IExchangeRateReducer} from '../reducers/exchangeRateReducer'
+
+import {Transaction} from './transaction'
 
 export const TransactionList:FC=()=>{
+    const transactionList=useSelector<IState, ITransactionReducer>(globalState=>globalState.transactions)
+    const exchangeRate=useSelector<IState, IExchangeRateReducer>(globalState=>globalState.exchangeRate)
+    const transactionData=transactionList.transactionsList
+    let transactionRecords=transactionData.map((record)=>(<li><Transaction title={record.title} valueEur={record.valueEur} exchangeRate={exchangeRate.currentRate.exchangeRate}/></li>))
     return(
     <div className="transactionListWrapper">
         <div className="topTransaction">
@@ -8,6 +19,9 @@ export const TransactionList:FC=()=>{
         </div>
         <div className="transactionList">
             <h4>All transactions</h4>
+            <ul>
+                {transactionRecords}
+            </ul>
         </div>
         <div className="transactionSummary">
             <h4>Summary</h4>
