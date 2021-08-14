@@ -1,6 +1,5 @@
 import { ITransaction } from "../entities/ITransaction";
 import * as actionTypes from '../actions/actionTypes/ITransactionTypes'
-//import * as actionTypes from "../actions/actionTypes/ICurrencyTypes";
 
 export interface ITransactionReducer{
     transactionsList:ITransaction[];
@@ -18,6 +17,17 @@ export default (state=defaultState(),action:any)=>{
             return {
                 ...state,
                 transactionsList:[...state.transactionsList, payload]
+            }
+        }
+        case actionTypes.REMOVE_TRANSACTION:{
+            const payload:actionTypes.ITrasactionTypes['REMOVE_TRANSACTION']=action
+            const objToRemove=action.transaction.id
+            const currentTransactions=state.transactionsList
+            const filteredTransaction=currentTransactions.filter(element=>element.id!==objToRemove)
+            debugger
+            return{
+                ...state,
+                transactionsList: filteredTransaction
             }
         }
         default:{

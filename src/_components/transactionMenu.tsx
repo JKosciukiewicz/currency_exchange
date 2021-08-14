@@ -35,12 +35,12 @@ export const TransactionMenu:FC=()=>{
     }
 
     const newTransaction=()=>{
-        const sampleTransaction:ITransaction={
+        const addedTransaction:ITransaction={
             id:transactionsCount+1,
             title:title,
             valueEur:value
         };
-        dispatch<AddTransaction>(addTransaction(sampleTransaction))
+        dispatch<AddTransaction>(addTransaction(addedTransaction))
     }
 
     const setCustomExchangeRate=()=>{
