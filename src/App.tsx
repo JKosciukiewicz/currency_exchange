@@ -1,6 +1,8 @@
-import React,{useEffect, useState} from 'react';
+import React,{useEffect} from 'react';
 import './App.css';
 import { TransactionMenu } from './_components/transactionMenu';
+import { TransactionList } from './_components/transactionsList';
+
 import { getCurrencies } from './actions/currencyActions';
 import {useDispatch} from 'react-redux'
 
@@ -15,6 +17,7 @@ function App() {
   return (
     <div className="App">
       <TransactionMenu/>
+      <TransactionList/>
     </div>
   );
 }

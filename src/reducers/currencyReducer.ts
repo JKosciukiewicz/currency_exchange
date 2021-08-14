@@ -17,10 +17,8 @@ const defaultState=():ICurrencyReducer=>({
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state=defaultState(),action:any)=>{
-    debugger;
     switch(action.type){
         case actionTypes.GET_EXCHANGE_RATES:{
-            debugger
             const payload:actionTypes.ICurrencyTypes['GET_EXCHANGE_RATES']=action
             return {
                 ...state,
@@ -28,7 +26,6 @@ export default (state=defaultState(),action:any)=>{
             }
         }
         default:{
-            debugger
             return state;
         }
     }
