@@ -5,12 +5,14 @@ import {ICurrencyReducer} from '../reducers/currencyReducer';
 import {ITransaction} from '../entities/ITransaction'
 import { ITransactionReducer } from '../reducers/transactionReducer';
 import { addTransaction } from '../actions/transactionActions';
+import {setExchangeRate} from '../actions/exchangeRateActions';
 import {useDispatch} from 'react-redux';
+import {IExchangeRateReducer} from '../reducers/exchangeRateReducer';
+import {IExchangeRate} from '../entities/IExchangeRate';
 
 export const TransactionMenu:FC=()=>{
-    const currencyList=useSelector<IState, ICurrencyReducer>(globalState=>globalState.rates)
-    const exchangeRates=currencyList.currencyList.rates
     type AddTransaction=ReturnType<typeof addTransaction>
+    type SetExchangeRate=ReturnType<typeof setExchangeRate>
     const dispatch=useDispatch()
 
     const newTransaction=()=>{
@@ -21,9 +23,20 @@ export const TransactionMenu:FC=()=>{
         dispatch<AddTransaction>(addTransaction(sampleTransaction))
     }
 
+    const setCustomExchangeRate=()=>{
+        const newExchangeRate:IExchangeRate={
+            exchangeRate:5
+        }
+        dispatch<SetExchangeRate>(setExchangeRate(newExchangeRate))
+    }
+
     const transactionList=useSelector<IState, ITransactionReducer>(globalState=>globalState.transactions)
+    const currencyList=useSelector<IState, ICurrencyReducer>(globalState=>globalState.rates)
+    const exchangeRateList=useSelector<IState,IExchangeRateReducer>(globalState=>globalState.exchangeRate)
+    const exchangeRates=currencyList.currencyList.rates
     console.log(transactionList)   
     console.log(exchangeRates)
+    console.log(exchangeRateList)
     return(
         <div className="transactionInput">
             <div className="exchangeRateWrapper">
@@ -33,7 +46,7 @@ export const TransactionMenu:FC=()=>{
                     <input type="number"/>
                     <p>PLN</p>
                 </div>
-                <button>AUTO</button>
+                <button onClick={setCustomExchangeRate}>AUTO</button>
             </div>
             <div className="transactionWrapper">
                 <h2>ADD TRANSACTION</h2>
