@@ -1,9 +1,8 @@
-import {FC} from 'react';
+import {FC, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {IState} from '../reducers';
 import {ICurrencyReducer} from '../reducers/currencyReducer';
 import {ITransaction} from '../entities/ITransaction'
-import { ITransactionReducer } from '../reducers/transactionReducer';
 import { addTransaction } from '../actions/transactionActions';
 import {setExchangeRate} from '../actions/exchangeRateActions';
 import {useDispatch} from 'react-redux';
@@ -14,47 +13,57 @@ export const TransactionMenu:FC=()=>{
     type AddTransaction=ReturnType<typeof addTransaction>
     type SetExchangeRate=ReturnType<typeof setExchangeRate>
     const dispatch=useDispatch()
+    const [rate, setRate]=useState(0)
+    const [title, setTitle]=useState('')
+    const [value, setValue]=useState(0)
+
+    const handleRateChange=(event:any)=>{
+        setRate(event.target.value)
+    }
+    const handleTitleChange=(event:any)=>{
+        setTitle(event.target.value)
+    }
+    const handleValueChange=(event:any)=>{
+        setValue(event.target.value)
+    }
 
     const newTransaction=()=>{
         const sampleTransaction:ITransaction={
-            title:'test',
-            valueEur:50
+            title:title,
+            valueEur:value
         };
         dispatch<AddTransaction>(addTransaction(sampleTransaction))
     }
 
     const setCustomExchangeRate=()=>{
         const newExchangeRate:IExchangeRate={
-            exchangeRate:5
+            exchangeRate:rate
         }
         dispatch<SetExchangeRate>(setExchangeRate(newExchangeRate))
     }
 
-    const transactionList=useSelector<IState, ITransactionReducer>(globalState=>globalState.transactions)
     const currencyList=useSelector<IState, ICurrencyReducer>(globalState=>globalState.rates)
     const exchangeRateList=useSelector<IState,IExchangeRateReducer>(globalState=>globalState.exchangeRate)
     const exchangeRates=currencyList.currencyList.rates
-    console.log(transactionList)   
-    console.log(exchangeRates)
-    console.log(exchangeRateList)
     return(
         <div className="transactionInput">
             <div className="exchangeRateWrapper">
                 <h2>EXCHANGE RATE</h2>
                 <div className="exchangeRateInput">
                     <p>1€=</p>
-                    <input type="number"/>
+                    <input type="number" onChange={handleRateChange}/>
                     <p>PLN</p>
                 </div>
-                <button onClick={setCustomExchangeRate}>AUTO</button>
+                <button>DEFAULT</button>
+                <button onClick={setCustomExchangeRate}>CHANGE</button>
             </div>
             <div className="transactionWrapper">
                 <h2>ADD TRANSACTION</h2>
                 <div className="transactionInput">
                     <p>Title</p>
-                    <input type="text"/>
+                    <input type="text" onChange={handleTitleChange}/>
                     <p>Value</p>
-                    <input type="number"/>
+                    <input type="number" onChange={handleValueChange}/>
                     <p>€</p>
                     <button onClick={newTransaction}>ADD</button>
                 </div>

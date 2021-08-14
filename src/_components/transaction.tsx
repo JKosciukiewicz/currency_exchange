@@ -9,6 +9,7 @@ export const Transaction:FC<ITransactionRecord>=({title, valueEur,exchangeRate}:
             <p>{title}</p>
             <p>{valueEur}</p>
             <p>{priceInPLN}</p>
+            <button>REMOVE</button>
         </div>
     )
 }

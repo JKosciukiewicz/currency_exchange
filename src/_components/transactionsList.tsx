@@ -12,6 +12,9 @@ export const TransactionList:FC=()=>{
     const exchangeRate=useSelector<IState, IExchangeRateReducer>(globalState=>globalState.exchangeRate)
     const transactionData=transactionList.transactionsList
     let transactionRecords=transactionData.map((record)=>(<li><Transaction title={record.title} valueEur={record.valueEur} exchangeRate={exchangeRate.currentRate.exchangeRate}/></li>))
+    let transactionsTotal:number=0
+    transactionData.map((record)=>(transactionsTotal+=Number(record.valueEur)))
+    let transactionsTotalPLN=transactionsTotal*exchangeRate.currentRate.exchangeRate
     return(
     <div className="transactionListWrapper">
         <div className="topTransaction">
@@ -26,6 +29,8 @@ export const TransactionList:FC=()=>{
         <div className="transactionSummary">
             <h4>Summary</h4>
             <p>TOTAL:</p>
+            <p>{transactionsTotal}</p>
+            <p>{transactionsTotalPLN}</p>
         </div>
     </div>
     )
